@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from discord.ext import commands
 import discord
+import os
 
 bot = commands.Bot(command_prefix=("--"))
 
@@ -22,4 +23,4 @@ async def wikihow(ctx,*args):
     await ctx.send(embed=embed)
 
 
-bot.run("")
+bot.run(os.getenv('BOT_TOKEN'))
