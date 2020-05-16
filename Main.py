@@ -3,8 +3,22 @@ from bs4 import BeautifulSoup
 from discord.ext import commands
 import discord
 import os
+import json
 
 bot = commands.Bot(command_prefix=("--"))
+
+def GetDefo(word):
+    req = requests.get(f"http://api.urbandictionary.com/v0/define?term={word}")
+    if req.status_code == 200:
+        info = json.loads(req.text)
+        print(req.text)
+        if req.text == '{"list":[]}':
+            return None,None
+
+
+        Defo = info.get("list")[0]["definition"]
+        Example = info["list"][0]["example"]
+        return Defo,Example
 
 def GetSites(Seasrch):
     request= requests.get(f"https://www.wikihow.com/wikiHowTo?search={Seasrch}")
@@ -22,5 +36,15 @@ async def wikihow(ctx,*args):
     embed = discord.Embed(title="Wikihow returns", description=f"{' '.join(GetSites(Searchterm))}", color=0x00ffff)
     await ctx.send(embed=embed)
 
+@bot.command(pass_context=True,name="MrUrban")
+async def MrUrban(ctx):
+    messages = ctx.message.content.split(" ")
+    if len(messages) < 2:
+        await ctx.send(f"Please Provide a word to search")
+    Defo, Example = GetDefo(messages[1])
+    if Defo == None:
+        await ctx.send(f"Can't Find a Definition For that")
+    else:
+        await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
 
 bot.run(os.getenv('BOT_TOKEN'))
