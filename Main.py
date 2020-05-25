@@ -59,4 +59,4 @@ async def MrUrban(ctx):
     else:
         await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
 
-bot.run("NzExNTU5NDYzMDE3OTA2MTc2.Xsvleg.wsItgCIfpj-w1X0U9E7sR0xpTa8")
+bot.run(os.getenv('BOT_TOKEN'))
