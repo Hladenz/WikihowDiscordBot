@@ -11,7 +11,6 @@ def GetDefo(word):
     req = requests.get(f"http://api.urbandictionary.com/v0/define?term={word}")
     if req.status_code == 200:
         info = json.loads(req.text)
-        print(req.text)
         if req.text == '{"list":[]}':
             return None,None
 
@@ -36,6 +35,19 @@ async def wikihow(ctx,*args):
     embed = discord.Embed(title="Wikihow returns", description=f"{' '.join(GetSites(Searchterm))}", color=0x00ffff)
     await ctx.send(embed=embed)
 
+@bot.event
+async def on_message(message):
+
+    if message.author.id != bot.user.id:
+        if "im" in message.content.lower():
+            words = message.content.lower().split(" ")
+            word = words[words.index("im") +1]
+            await message.channel.send(f"Hello {word}, Im Dad!")
+        elif "i'm" in message.content.lower():
+            words = message.content.lower().split(" ")
+            word = words[words.index("i'm") +1]
+            await message.channel.send(f"Hello {word}, Im Dad!")
+
 @bot.command(pass_context=True,name="MrUrban")
 async def MrUrban(ctx):
     messages = ctx.message.content.split(" ")
@@ -47,4 +59,4 @@ async def MrUrban(ctx):
     else:
         await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
 
-bot.run(os.getenv('BOT_TOKEN'))
+bot.run("NzExNTU5NDYzMDE3OTA2MTc2.Xsvleg.wsItgCIfpj-w1X0U9E7sR0xpTa8")
