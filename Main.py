@@ -35,19 +35,6 @@ async def wikihow(ctx,*args):
     embed = discord.Embed(title="Wikihow returns", description=f"{' '.join(GetSites(Searchterm))}", color=0x00ffff)
     await ctx.send(embed=embed)
 
-@bot.event
-async def on_message(message):
-
-    if message.author.id != bot.user.id:
-        if "im" in message.content.lower():
-            words = message.content.lower().split(" ")
-            word = words[words.index("im") +1]
-            await message.channel.send(f"Hello {word}, Im Dad!")
-        elif "i'm" in message.content.lower():
-            words = message.content.lower().split(" ")
-            word = words[words.index("i'm") +1]
-            await message.channel.send(f"Hello {word}, Im Dad!")
-
 @bot.command(pass_context=True,name="MrUrban")
 async def MrUrban(ctx):
     messages = ctx.message.content.split(" ")
@@ -67,5 +54,18 @@ async def Credit(ctx):
         url="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/1fdcc4ab070147dd6f8b31246f672514-1588777785551/73c13f35-b2c1-42e5-a5f1-652cd437eeeb.jpg")
     await ctx.channel.send(embed=embed)
 
+@bot.event
+async def on_message(message):
+    if message.author.id != bot.user.id:
+        if "im" in message.content.lower():
+            words = message.content.lower().split(" ")
+            word = words[words.index("im") +1]
+            await message.channel.send(f"Hello {word}, Im Dad!")
+        elif "i'm" in message.content.lower():
+            words = message.content.lower().split(" ")
+            word = words[words.index("i'm") +1]
+            await message.channel.send(f"Hello {word}, Im Dad!")
+        await bot.process_commands(message)
 
-bot.run(os.getenv('BOT_TOKEN'))
+
+bot.run("NzExNTU5NDYzMDE3OTA2MTc2.XsvtZQ.91oH24n3m8sn4v6Y5do7BlXupdA")
