@@ -59,4 +59,13 @@ async def MrUrban(ctx):
     else:
         await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
 
+@bot.command(pass_context=True, name="credit")
+async def Credit(ctx):
+    embed = discord.Embed(title="Bot Created By Hladenz", url="https://www.fiverr.com/hladenz",
+                          description="This Bot Was Created By Hladenz On Fiverr *not really*", color=0x00ff00)
+    embed.set_thumbnail(
+        url="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/1fdcc4ab070147dd6f8b31246f672514-1588777785551/73c13f35-b2c1-42e5-a5f1-652cd437eeeb.jpg")
+    await ctx.channel.send(embed=embed)
+
+
 bot.run(os.getenv('BOT_TOKEN'))
