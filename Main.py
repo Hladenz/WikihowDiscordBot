@@ -68,4 +68,4 @@ async def on_message(message):
         await bot.process_commands(message)
 
 
-bot.run("NzExNTU5NDYzMDE3OTA2MTc2.XsvtZQ.91oH24n3m8sn4v6Y5do7BlXupdA")
+bot.run(os.getenv('BOT_TOKEN'))
