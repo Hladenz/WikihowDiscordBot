@@ -35,6 +35,15 @@ async def wikihow(ctx,*args):
     embed = discord.Embed(title="Wikihow returns", description=f"{' '.join(GetSites(Searchterm))}", color=0x00ffff)
     await ctx.send(embed=embed)
 
+@bot.command(pass_context=True,name="dad")
+async def dad(ctx):
+    req = requests.get("https://icanhazdadjoke.com/",headers={'Accept': 'application/json'})
+    joke = json.loads(req.text)["joke"]
+    embed = discord.Embed(title="Dad joke", description=f"**{joke}**", color=0x00ff40)
+    embed.set_thumbnail(
+        url="https://external-preview.redd.it/PeRVwxExVjiKGmE3iu8tKynJr1MNRfroCsXm45ErDUQ.jpg?width=960&crop=smart&auto=webp&s=92972309a69f653043d2ff4c34a63627e25ceb79")
+    await ctx.send(embed=embed)
+
 @bot.command(pass_context=True,name="MrUrban")
 async def MrUrban(ctx):
     messages = ctx.message.content.split(" ")
