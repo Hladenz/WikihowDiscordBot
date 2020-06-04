@@ -4,6 +4,8 @@ from discord.ext import commands
 import discord
 import os
 import json
+import random
+from random_words import RandomWords
 
 bot = commands.Bot(command_prefix=("--"))
 
@@ -44,6 +46,22 @@ async def dad(ctx):
         url="https://external-preview.redd.it/PeRVwxExVjiKGmE3iu8tKynJr1MNRfroCsXm45ErDUQ.jpg?width=960&crop=smart&auto=webp&s=92972309a69f653043d2ff4c34a63627e25ceb79")
     await ctx.send(embed=embed)
 
+@bot.command(pass_context=True,name="offendme")
+async def offendme(ctx):
+    choice = random.randint(0,1)
+    if choice == 0:
+        req = requests.get("https://sv443.net/jokeapi/v2/joke/Dark?type=twopart",headers={'Accept': 'application/json'})
+        joke = f"*{json.loads(req.text)['setup']}*\n{json.loads(req.text)['delivery']}"
+        embed=discord.Embed(title="Heres my best attempt.....", description=f"{joke}", color=0x0000ff)
+        await ctx.send(embed=embed)
+    else:
+        req = requests.get("https://sv443.net/jokeapi/v2/joke/Dark?type=single",
+                           headers={'Accept': 'application/json'})
+        joke = f"*{json.loads(req.text)['joke']}*"
+        embed = discord.Embed(title="Heres my best attempt.....", description=f"{joke}", color=0x0000ff)
+        await ctx.send(embed=embed)
+
+
 @bot.command(pass_context=True,name="MrUrban")
 async def MrUrban(ctx):
     messages = ctx.message.content.split(" ")
@@ -54,6 +72,16 @@ async def MrUrban(ctx):
         await ctx.send(f"Can't Find a Definition For that")
     else:
         await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
+
+@bot.command(pass_context=True,name="RandomUrban")
+async def RandomUrban(ctx):
+
+    Defo, Example = GetDefo(RandomWords().random_word())
+    if Defo == None:
+        await ctx.send(f"Can't Find a Definition For that")
+    else:
+        await ctx.send(f"**Definition:**{Defo} \n **Example:**{Example}")
+
 
 @bot.command(pass_context=True, name="credit")
 async def Credit(ctx):
